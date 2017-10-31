@@ -2,11 +2,14 @@
 import Vue from 'vue'
 //
 import VueRouter from 'vue-router'
-// app
+import Autocomplete from 'v-autocomplete'
+
+//
 import App from './components/App.vue'
 
-// Use router
+// Use
 Vue.use(VueRouter)
+Vue.use(Autocomplete)
 
 const routes = [
 	{path: '/', component: App}
