@@ -7,8 +7,8 @@
   <div>
     <h1>Country</h1>
     <v-autocomplete 
-      :items="items" 
-      :value='item'
+      :items="countryList" 
+      :value='currCountry'
       :get-label='getLabel'
       :min-len='0' 
       
@@ -31,9 +31,9 @@ export default {
   data () {
     return {
       // Single item, input
-      item: {},
+      currCountry: {},
       // Many items
-      items: [],
+      countryList: [],
       // You can do component or data, need to see the diff
       ItemTemplate: ItemTemplate
     }
@@ -41,18 +41,18 @@ export default {
 
   methods: {
     // the item on input box
-    itemSelected (item) {
+    itemSelected(item) {
       console.log('Selected item!', item)
     },
 
     // list item click
-    itemClicked (item) {
+    itemClicked(item) {
       let country = item 
       this.$store.dispatch('conSetCurrCountry', country)
     },
 
     // Label
-    getLabel (item) {
+    getLabel(item) {
       return item.name
     },
 
@@ -60,7 +60,7 @@ export default {
     update (text) {
       // Assign to data
       // Array filter
-      this.items = this.items.filter((item) => {
+      this.countryList = this.items.filter((item) => {
         return (
           // input text
           new RegExp(text.toLowerCase())
@@ -80,8 +80,8 @@ export default {
   },
 
   created() {
-    this.item = this.$store.getters.curCountry
-    this.items = this.$store.getters.countryList
+    this.currCountry = this.$store.getters.currCountry
+    this.countryList = this.$store.getters.countryList
   }
 }
 </script>

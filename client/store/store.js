@@ -3,14 +3,18 @@ import Vue from 'vue'
 // state
 import Vuex from 'vuex'
 import Country from '../../data/country.js'
+import Institution from '../../data/institution.js'
 
 //
 Vue.use(Vuex)
 
 // 
 const state = {
-  curCountry: {},
-  countryList: []
+  currCountry: {},
+  countryList: [],
+
+  currInstitution: {},
+  institutionList: []
 }
 
 // Mutation
@@ -21,7 +25,15 @@ const mutations = {
   },
 
   CON_SET_CURR_COUNTRY(state, country) {
-    state.curCountry = country
+    state.currCountry = country
+  },
+  
+  IN_GET_INSTITUTION_LIST(state, institutionList) {
+    state.institutionList = institutionList
+  },
+
+  IN_SET_CURR_INSTITUTION(state, institution) {
+    state.currinstitution = institution
   }
 }
 
@@ -36,12 +48,24 @@ const actions = {
   conSetCurrCountry(store, country) {
 		let commit = store.commit
 		commit('CON_SET_CURR_COUNTRY', country)
+  },
+
+  //
+  inGetInstitutionList(store) {
+		let commit = store.commit
+		commit('IN_GET_INSTITUTION_LIST', Institution)
+  },
+  
+  // 
+  inSetCurrInstitution(store, institution) {
+		let commit = store.commit
+		commit('IN_SET_CURR_INSTITUTION', institution)
   }
 }
 
 // state.reducer
 const getters = {
-  curCountry: state => state.curCountry,
+  currCountry: state => state.currCountry,
   countryList: state => state.countryList
 }
 

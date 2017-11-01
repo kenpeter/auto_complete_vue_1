@@ -1,14 +1,9 @@
-<!-- we don't need to use this.items -->
-<!-- item, input, v model -->
-<!-- label -->
-<!-- sub component -->
-<!-- Filter item -->
 <template>
   <div>
-    <h1>Animal</h1>
+    <h1>Institution</h1>
     <v-autocomplete 
-      :items="items" 
-      v-model='item'
+      :items="institutionList" 
+      :value='currInstitution'
       :get-label='getLabel'
       :min-len='0' 
       
@@ -26,16 +21,14 @@ import Autocomplete from 'v-autocomplete'
 
 // Single item
 import ItemTemplate from './ItemTemplate.vue'
-// Data
-import Animals from '../../data/animals.js'
 
 export default {
   data () {
     return {
       // Single item, input
-      item: {id: 9, name: 'Lion', description: 'Lion text'},
+      currInstitution: {},
       // Many items
-      items: [],
+      InstitutionList: [],
       // You can do component or data, need to see the diff
       ItemTemplate: ItemTemplate
     }
@@ -43,22 +36,26 @@ export default {
 
   methods: {
     // the item on input box
-    itemSelected (item) {
+    itemSelected(item) {
       console.log('Selected item!', item)
     },
+
     // list item click
-    itemClicked (item) {
-      console.log('You clicked an item!', item)
+    itemClicked(item) {
+      let institution = item 
+      this.$store.dispatch('inSetCurrInstitution', institution)
     },
+
     // Label
-    getLabel (item) {
+    getLabel(item) {
       return item.name
     },
+
     // Update
     update (text) {
       // Assign to data
       // Array filter
-      this.items = this.items.filter((item) => {
+      this.institutionList = this.items.filter((item) => {
         return (
           // input text
           new RegExp(text.toLowerCase())
@@ -74,11 +71,12 @@ export default {
 
   // So we have extra wrap to action
   beforeCreate() {
-    this.$store.dispatch('getTotalItems')
+    this.$store.dispatch('inGetInstitutionList')
   },
 
   created() {
-    this.items = this.$store.getters.totalItems;
+    this.currInstitution = this.$store.getters.currInstitution
+    this.institutionList = this.$store.getters.institutionList
   }
 }
 </script>
