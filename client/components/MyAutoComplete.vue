@@ -29,7 +29,7 @@ import Animals from '../../data/animals.js'
 export default {
   data () {
     return {
-      // Single item
+      // Single item, input
       item: {id: 9, name: 'Lion', description: 'Lion text'},
       // Many items
       items: [],
@@ -55,7 +55,7 @@ export default {
     update (text) {
       // Assign to data
       // Array filter
-      this.items = Animals.filter((item) => {
+      this.items = this.items.filter((item) => {
         return (
           // input text
           new RegExp(text.toLowerCase())
@@ -67,6 +67,14 @@ export default {
 
   components: {
     'v-autocomplete': Autocomplete
+  },
+
+  beforeCreate() {
+    this.$store.dispatch('getTotalItems')
+  },
+
+  created() {
+    this.items = this.$store.getters.totalItems;
   }
 }
 </script>

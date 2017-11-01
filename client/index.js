@@ -3,8 +3,11 @@ import Vue from 'vue'
 //
 import VueRouter from 'vue-router'
 
-//
+// Component
 import App from './components/App.vue'
+
+// Store
+import store from './store/store'
 
 // Use
 Vue.use(VueRouter)
@@ -20,6 +23,7 @@ const router = new VueRouter({
 // #app
 new Vue({
 	router,
+	store,
   el: '#app',
   render: h => h(App)
 })
