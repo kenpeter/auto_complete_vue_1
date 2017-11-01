@@ -2,37 +2,47 @@
 import Vue from 'vue'
 // state
 import Vuex from 'vuex'
-import Animals from '../../data/animals.js'
+import Country from '../../data/country.js'
 
 //
 Vue.use(Vuex)
 
 // 
 const state = {
-  curItem: {id: 9, name: 'Lion', description: 'Lion text'},
-  totalItems: []
+  curCountry: {},
+  countryList: []
 }
 
 // Mutation
 const mutations = {
   // We change part of state  
-  GET_TOTAL_ITEMS(state, items) {
-    state.totalItems = items;
+  CON_GET_COUNTRY_LIST(state, countryList) {
+    state.countryList = countryList
+  },
+
+  CON_SET_CURR_COUNTRY(state, country) {
+    state.curCountry = country
   }
 }
 
 const actions = {
-  // Has store and param
-	getTotalItems(store) {
-    let items = Animals;
-		let commit = store.commit;
-		commit('GET_TOTAL_ITEMS', items);
-	}
+  // Get all countries
+	conGetCountryList(store) {
+		let commit = store.commit
+		commit('CON_GET_COUNTRY_LIST', Country)
+  },
+  
+  // Set current country
+  conSetCurrCountry(store, country) {
+		let commit = store.commit
+		commit('CON_SET_CURR_COUNTRY', country)
+  }
 }
 
 // state.reducer
 const getters = {
-  totalItems: state => state.totalItems
+  curCountry: state => state.curCountry,
+  countryList: state => state.countryList
 }
 
 // full state

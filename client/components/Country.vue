@@ -8,7 +8,7 @@
     <h1>Country</h1>
     <v-autocomplete 
       :items="items" 
-      v-model='item'
+      :value='item'
       :get-label='getLabel'
       :min-len='0' 
       
@@ -26,14 +26,12 @@ import Autocomplete from 'v-autocomplete'
 
 // Single item
 import ItemTemplate from './ItemTemplate.vue'
-// Data
-import Animals from '../../data/animals.js'
 
 export default {
   data () {
     return {
       // Single item, input
-      item: {id: 9, name: 'Lion', description: 'Lion text'},
+      item: {},
       // Many items
       items: [],
       // You can do component or data, need to see the diff
@@ -46,14 +44,18 @@ export default {
     itemSelected (item) {
       console.log('Selected item!', item)
     },
+
     // list item click
     itemClicked (item) {
-      console.log('You clicked an item!', item)
+      let country = item 
+      this.$store.dispatch('conSetCurrCountry', country)
     },
+
     // Label
     getLabel (item) {
       return item.name
     },
+
     // Update
     update (text) {
       // Assign to data
@@ -74,11 +76,12 @@ export default {
 
   // So we have extra wrap to action
   beforeCreate() {
-    this.$store.dispatch('getTotalItems')
+    this.$store.dispatch('conGetCountryList')
   },
 
   created() {
-    this.items = this.$store.getters.totalItems;
+    this.item = this.$store.getters.curCountry
+    this.items = this.$store.getters.countryList
   }
 }
 </script>
