@@ -4,18 +4,21 @@
 <!-- sub component -->
 <!-- Filter item -->
 <template>
-  <v-autocomplete 
-    :items="items" 
-    v-model='item'
-    :get-label='getLabel'
-    :min-len='0' 
-    
-    @update-items='update'
-    :component-item='ItemTemplate' 
-    @item-selected="itemSelected"
-    @item-clicked="itemClicked"
-  >
-  </v-autocomplete>
+  <div>
+    <h1>Animal</h1>
+    <v-autocomplete 
+      :items="items" 
+      v-model='item'
+      :get-label='getLabel'
+      :min-len='0' 
+      
+      @update-items='update'
+      :component-item='ItemTemplate' 
+      @item-selected="itemSelected"
+      @item-clicked="itemClicked"
+    >
+    </v-autocomplete>
+  </div>
 </template>
 
 <script>
@@ -69,6 +72,7 @@ export default {
     'v-autocomplete': Autocomplete
   },
 
+  // So we have extra wrap to action
   beforeCreate() {
     this.$store.dispatch('getTotalItems')
   },
